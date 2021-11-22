@@ -15,7 +15,7 @@ const fetchMovie = () => {
         const movie1Title = document.getElementById("movie1Title");
         const movie1Category = document.getElementById("movie1Category");
         const backdrop_path = data.backdrop_path;
-        const backdropUrl = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
+        const backdropUrl = `https://image.tmdb.org/t/p/w200${backdrop_path}`;
         console.log(backdropUrl);
 
         movie1Title.innerHTML = `${data.title}`;
@@ -23,8 +23,8 @@ const fetchMovie = () => {
 
         const backdrop = document.createElement("IMG");
         backdrop.setAttribute("src", `${backdropUrl}`);
-        backdrop.setAttribute("width", "200");
-        backdrop.setAttribute("height", "200");
+        // backdrop.setAttribute("width", "200");
+        // backdrop.setAttribute("height", "200");
         backdrop.setAttribute("alt", "fight club");
         document.getElementById("setBackdrop").append(backdrop);
         // movie1Image.innerHTML = `<img class="card-img-top" id="movie1Image" src=https://image.tmdb.org/t/p/w500/hZkgoQYus5vegHoetLkCJzb17zJ.jpg alt="Card image cap">`;
