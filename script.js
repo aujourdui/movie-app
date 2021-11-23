@@ -14,7 +14,10 @@ const fetchMovie = () => {
     response.json().then((data) => {
       // console.log(data.results);
       const limitedMovies = data.results.slice(0, 6);
-      // console.log(limitedMovies);
+      console.log(limitedMovies);
+      const movieTitleList = limitedMovies.map((data) => data.title);
+      const movieCategoryList = limitedMovies.map((data) => data.category);
+      console.log(movieCategoryList);
 
       const createCardContainer = () => {
         const movieContainer = document.getElementById("movie-container");
@@ -29,8 +32,6 @@ const fetchMovie = () => {
           createCardContainer();
         }
       };
-
-      setCreateCardContainer(2);
 
       const createCard = (i) => {
         const cardContainer =
@@ -47,8 +48,9 @@ const fetchMovie = () => {
         cardContainer.append(cardList);
       };
 
-      const createCardList = (row, times) => {
-        for (let t = 0; t < times; t++) {
+      const createCardList = (row, column) => {
+        setCreateCardContainer(column);
+        for (let t = 0; t < column; t++) {
           for (let i = 0; i < row; i++) {
             createCard(t);
           }
