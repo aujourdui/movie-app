@@ -65,10 +65,11 @@ const fetchMovieGenre = async () => {
             <div class="card-body">
               <h5 class="card-title">${movieTitleList[item]}</h5>
               <h5 class="card-text">${createCategoryNameList()[item]}</h5>
-              <a href="/detail.html" class="btn btn-primary">Go Detail page</a>
+              <a href="detail.html" id=${item}  button type="button" class="btn btn-info">Go Detail page</button>
             </div>
             `;
       cardContainer.append(cardList);
+      // onclick="console.log(this.id)"
     };
 
     if (window.location.href == "http://127.0.0.1:5502/index.html") {
@@ -81,24 +82,54 @@ const fetchMovieGenre = async () => {
         }
       };
       createCardList(3, 2);
+
+      // const jumpDetailPage = () => {
+      //   // const button = document.getElementsByClassName("btn-home")[id];
+      //   for (let i = 0; i < 6; i++) {
+      //     const button = document.getElementsByClassName("btn btn-info")[i];
+      //     button.addEventListener("click", (e) => {
+      //       e.preventDefault();
+      //       console.log(`hello ${i}`);
+      //       const jumpPlace =
+      //         document.getElementsByClassName("btn btn-info")[i];
+      //       const jump = document.createElement("div");
+      //       jump.innerHTML = "<a href=/detail.html>Hello</a>";
+      //       jumpPlace.append(jump);
+      //     });
+      //   }
+      // };
+      // jumpDetailPage();
     } else {
-      const createDetail = () => {
+      const createDetailCard = (item) => {
         const detail = document.getElementById("movie-container-detail");
         const createDetailContainer = document.createElement("div");
-        createDetailContainer.innerHTML = "Hello world";
+        createDetailContainer.setAttribute(
+          "class",
+          "card col-md-8",
+          "style",
+          "width: 100%"
+        );
+        createDetailContainer.innerHTML = `
+              <div><img style="width:100%" src= https://image.tmdb.org/t/p/w200${
+                movieBackdropUrlList[item]
+              }></div>
+              <div class="card-body">
+                <h5 class="card-title">${movieTitleList[item]}</h5>
+                <h5 class="card-text">${createCategoryNameList()[item]}</h5>
+                <a href="index.html" id=${item} button type="button" class="btn btn-info">return home page</button>
+              </div>
+              `;
         detail.append(createDetailContainer);
       };
-      createDetail();
-    }
+      createDetailCard(3);
 
-    // detail page
-    // const createDetail = () => {
-    //   const detail = document.getElementById("movie-container-detail");
-    //   const createDetailContainer = document.createElement("div");
-    //   createDetailContainer.innerHTML = "Hello world";
-    //   detail.append(createDetailContainer);
-    // };
-    // createDetail();
+      // const selectDetailCard = (id) => {
+      //   // document.getElementsByClassName("btn btn-info")[id];
+      //   document.getElementById("id");
+      //   createDetailCard(id);
+      // };
+      // selectDetailCard(1);
+    }
   };
   fetchMovie();
 };
