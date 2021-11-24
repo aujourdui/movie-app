@@ -11,8 +11,8 @@ const fetchMovieGenre = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
   );
-  const genre = await response.json();
-  // console.log(genre);
+  const data = await response.json();
+  const genres = data.genres;
 
   const fetchMovie = async () => {
     const response = await fetch(
@@ -25,94 +25,13 @@ const fetchMovieGenre = async () => {
       console.log("Something wrong, try again");
     }
     const data = await response.json();
-    // console.log(data.results);
     const limitedMovies = data.results.slice(0, 6);
     console.log(limitedMovies);
     const movieTitleList = limitedMovies.map((data) => data.title);
     const movieCategoryIdList = limitedMovies.map((data) => data.genre_ids[0]);
-    const movieCategoryNameList = console.log(genre);
-
-    // console.log(movieTitleList);
-    console.log(movieCategoryIdList);
-
-    // let object = [
-    //   { id: 28, name: "Action" },
-    //   { id: 12, name: "Adventure" },
-    //   { id: 16, name: "Animation" },
-    //   { id: 35, name: "Comedy" },
-    //   { id: 80, name: "Crime" },
-    //   { id: 99, name: "Documentary" },
-    //   { id: 18, name: "Drama" },
-    //   { id: 10751, name: "Family" },
-    //   { id: 14, name: "Fantasy" },
-    //   { id: 36, name: "History" },
-    //   { id: 27, name: "Horror" },
-    //   { id: 10402, name: "Music" },
-    //   { id: 9648, name: "Mystery" },
-    //   { id: 10749, name: "Romance" },
-    //   { id: 878, name: "Science Fiction" },
-    //   { id: 10770, name: "TV Movie" },
-    //   { id: 53, name: "Thriller" },
-    //   { id: 10752, name: "War" },
-    //   { id: 37, name: "Western" },
-    // ];
-
-    // let arr = [16, 16, 16, 16, 35, 28];
-
-    // const newArr = [];
-
-    // for (let i = 0; i < arr.length; i++) {
-    //   for (let t = 0; t < object.length; t++) {
-    //     if (arr[i] == object[t].id) {
-    //       newArr.push(object[t].name);
-    //     }
-    //   }
-    // }
-    // console.log(newArr);
-
-    //     let object = { a: 1, b: 2 };
-
-    // console.log(object.a);
-
-    //       const createCardContainer = () => {
-    //         const movieContainer = document.getElementById("movie-container");
-    //         const cardContainer = document.createElement("div");
-    //         cardContainer.setAttribute("class", "row card-container");
-    //         cardContainer.innerHTML = "";
-    //         movieContainer.append(cardContainer);
-    //       };
-
-    //       const setCreateCardContainer = (column) => {
-    //         for (let i = 0; i < column; i++) {
-    //           createCardContainer();
-    //         }
-    //       };
-
-    //       const createCard = (i) => {
-    //         const cardContainer =
-    //           document.getElementsByClassName("card-container")[i];
-    //         const cardList = document.createElement("div");
-    //         cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
-    //         cardList.innerHTML = `
-    //         <div class="card-body">
-    //           <h5 class="card-title">Movie1</h5>
-    //           <h5 class="card-text">Category1</h5>
-    //           <a href="/detail.html" class="btn btn-primary">Go Detail page</a>
-    //         </div>
-    //         `;
-    //         cardContainer.append(cardList);
-    //       };
-
-    //       const createCardList = (row, column) => {
-    //         setCreateCardContainer(column);
-    //         for (let t = 0; t < column; t++) {
-    //           for (let i = 0; i < row; i++) {
-    //             createCard(t);
-    //           }
-    //         }
-    //       };
-
-    //       createCardList(3, 2);
+    const movieBackdropUrlList = limitedMovies.map(
+      (data) => data.backdrop_path
+    );
 
     //       //       const movie1Title = document.getElementById("movie1Title");
     //       //       const movie1Category = document.getElementById("movie1Category");
@@ -134,6 +53,60 @@ const fetchMovieGenre = async () => {
     //       //         console.log(data);
     //       //       };
     //       //       createBackdrop();
+
+    const createCategoryNameList = () => {
+      const movieCategoryNameList = [];
+      for (let i = 0; i < movieCategoryIdList.length; i++) {
+        for (let t = 0; t < genres.length; t++) {
+          if (movieCategoryIdList[i] == genres[t].id) {
+            movieCategoryNameList.push(genres[t].name);
+          }
+        }
+      }
+      return movieCategoryNameList;
+    };
+    console.log(createCategoryNameList());
+    console.log(movieTitleList);
+
+    const createCardContainer = () => {
+      const movieContainer = document.getElementById("movie-container");
+      const cardContainer = document.createElement("div");
+      cardContainer.setAttribute("class", "row card-container");
+      cardContainer.innerHTML = "";
+      movieContainer.append(cardContainer);
+    };
+
+    const setCreateCardContainer = (column) => {
+      for (let i = 0; i < column; i++) {
+        createCardContainer();
+      }
+    };
+
+    const createCard = (i, movieData) => {
+      const cardContainer =
+        document.getElementsByClassName("card-container")[i];
+      const cardList = document.createElement("div");
+      cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
+      cardList.innerHTML = `
+            <div class="card-body">
+              <h5 class="card-title">${movieTitleList[movieData]}</h5>
+              <h5 class="card-text">${createCategoryNameList()[movieData]}</h5>
+              <a href="/detail.html" class="btn btn-primary">Go Detail page</a>
+            </div>
+            `;
+      cardContainer.append(cardList);
+    };
+
+    const createCardList = (row, column) => {
+      setCreateCardContainer(column);
+      for (let t = 0; t < column; t++) {
+        for (let i = 0; i < row; i++) {
+          createCard(t, i + 3 * t);
+        }
+      }
+    };
+
+    createCardList(3, 2);
     //     });
     //   });
     // };
