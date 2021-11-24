@@ -33,27 +33,6 @@ const fetchMovieGenre = async () => {
       (data) => data.backdrop_path
     );
 
-    //       //       const movie1Title = document.getElementById("movie1Title");
-    //       //       const movie1Category = document.getElementById("movie1Category");
-    //       //       const backdrop_path = data.backdrop_path;
-    //       //       const backdropUrl = `https://image.tmdb.org/t/p/w200${backdrop_path}`;
-    //       //       console.log(backdropUrl);
-
-    //       //       movie1Title.innerHTML = `${data.title}`;
-    //       //       movie1Category.innerHTML = `${data.genres[0].name}`;
-
-    //       //       const createBackdrop = () => {
-    //       //         const backdrop = document.createElement("IMG");
-    //       //         backdrop.setAttribute("src", `${backdropUrl}`);
-    //       //         // backdrop.setAttribute("width", "200");
-    //       //         // backdrop.setAttribute("height", "200");
-    //       //         backdrop.setAttribute("alt", "fight club");
-    //       //         document.getElementById("setBackdrop").append(backdrop);
-    //       //         // movie1Image.innerHTML = `<img class="card-img-top" id="movie1Image" src=https://image.tmdb.org/t/p/w500/hZkgoQYus5vegHoetLkCJzb17zJ.jpg alt="Card image cap">`;
-    //       //         console.log(data);
-    //       //       };
-    //       //       createBackdrop();
-
     const createCategoryNameList = () => {
       const movieCategoryNameList = [];
       for (let i = 0; i < movieCategoryIdList.length; i++) {
@@ -82,11 +61,24 @@ const fetchMovieGenre = async () => {
       }
     };
 
-    const createCard = (i, movieData) => {
+    // const createImageContainer = (itemNumber) => {
+    //   const imageContainer =
+    //     document.getElementsByClassName("card col-sm")[itemNumber];
+    //   const imageContainDiv = document.createElement("div");
+    //   imageContainDiv.setAttribute("class", "setBackdrop");
+    //   imageContainDiv.innerHTML = "";
+    //   imageContainer.append(imageContainDiv);
+    // };
+
+    const createCard = (column, movieData) => {
       const cardContainer =
-        document.getElementsByClassName("card-container")[i];
+        document.getElementsByClassName("card-container")[column];
       const cardList = document.createElement("div");
       cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
+
+      // createImageContainer(movieData);
+      createBackdrop(column, movieData);
+
       cardList.innerHTML = `
             <div class="card-body">
               <h5 class="card-title">${movieTitleList[movieData]}</h5>
@@ -97,11 +89,28 @@ const fetchMovieGenre = async () => {
       cardContainer.append(cardList);
     };
 
+    const createBackdrop = (column, index) => {
+      const backdropUrl = `https://image.tmdb.org/t/p/w200${movieBackdropUrlList[index]}`;
+      const backdrop = document.createElement("IMG");
+      // backdrop.setAttribute("class", `card col-sm`);
+      backdrop.setAttribute("src", `${backdropUrl}`);
+      // backdrop.setAttribute("width", "200");
+      // backdrop.setAttribute("height", "200");
+      backdrop.setAttribute("alt", `${movieTitleList[index]}`);
+      // document.getElementsByClassName("setBackdrop")[column].append(backdrop);
+      document
+        .getElementsByClassName("card-container")
+        [column].append(backdrop);
+      // movie1Image.innerHTML = `<img class="card-img-top" id="movie1Image" src=https://image.tmdb.org/t/p/w500/hZkgoQYus5vegHoetLkCJzb17zJ.jpg alt="Card image cap">`;
+    };
+
     const createCardList = (row, column) => {
       setCreateCardContainer(column);
       for (let t = 0; t < column; t++) {
         for (let i = 0; i < row; i++) {
           createCard(t, i + 3 * t);
+          // createImageContainer();
+          // createBackdrop(t, i + 3 * t);
         }
       }
     };
@@ -110,6 +119,27 @@ const fetchMovieGenre = async () => {
     //     });
     //   });
     // };
+
+    //       //       const movie1Title = document.getElementById("movie1Title");
+    //       //       const movie1Category = document.getElementById("movie1Category");
+    //       //       const backdrop_path = data.backdrop_path;
+    //       //       const backdropUrl = `https://image.tmdb.org/t/p/w200${backdrop_path}`;
+    //       //       console.log(backdropUrl);
+
+    //       //       movie1Title.innerHTML = `${data.title}`;
+    //       //       movie1Category.innerHTML = `${data.genres[0].name}`;
+
+    //       //       const createBackdrop = () => {
+    //       //         const backdrop = document.createElement("IMG");
+    //       //         backdrop.setAttribute("src", `${backdropUrl}`);
+    //       //         // backdrop.setAttribute("width", "200");
+    //       //         // backdrop.setAttribute("height", "200");
+    //       //         backdrop.setAttribute("alt", "fight club");
+    //       //         document.getElementById("setBackdrop").append(backdrop);
+    //       //         // movie1Image.innerHTML = `<img class="card-img-top" id="movie1Image" src=https://image.tmdb.org/t/p/w500/hZkgoQYus5vegHoetLkCJzb17zJ.jpg alt="Card image cap">`;
+    //       //         console.log(data);
+    //       //       };
+    //       //       createBackdrop();
 
     // const fetchMovie = () => {
     //   fetch(
