@@ -1,5 +1,6 @@
 const apiKey = "67a465f165043b63372ea02407bc5582";
 
+// home page
 const fetchMovieGenre = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
@@ -18,7 +19,7 @@ const fetchMovieGenre = async () => {
       console.log("Something wrong, try again");
     }
     const data = await response.json();
-    const limitedMovies = data.results.slice(0, 6);
+    const limitedMovies = data.results.slice(0, 30);
     const movieTitleList = limitedMovies.map((data) => data.title);
     const movieCategoryIdList = limitedMovies.map((data) => data.genre_ids[0]);
     const movieBackdropUrlList = limitedMovies.map(
@@ -70,17 +71,35 @@ const fetchMovieGenre = async () => {
       cardContainer.append(cardList);
     };
 
-    const createCardList = (row, column) => {
-      setCreateCardContainer(column);
-      for (let t = 0; t < column; t++) {
-        for (let i = 0; i < row; i++) {
-          createCard(t, i + 3 * t);
+    if (window.location.href == "http://127.0.0.1:5502/index.html") {
+      const createCardList = (row, column) => {
+        setCreateCardContainer(column);
+        for (let t = 0; t < column; t++) {
+          for (let i = 0; i < row; i++) {
+            createCard(t, i + 3 * t);
+          }
         }
-      }
-    };
-    createCardList(3, 2);
+      };
+      createCardList(3, 2);
+    } else {
+      const createDetail = () => {
+        const detail = document.getElementById("movie-container-detail");
+        const createDetailContainer = document.createElement("div");
+        createDetailContainer.innerHTML = "Hello world";
+        detail.append(createDetailContainer);
+      };
+      createDetail();
+    }
+
+    // detail page
+    // const createDetail = () => {
+    //   const detail = document.getElementById("movie-container-detail");
+    //   const createDetailContainer = document.createElement("div");
+    //   createDetailContainer.innerHTML = "Hello world";
+    //   detail.append(createDetailContainer);
+    // };
+    // createDetail();
   };
   fetchMovie();
 };
-
 fetchMovieGenre();
