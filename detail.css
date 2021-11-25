@@ -1,0 +1,29 @@
+.header {
+  margin-bottom: 3rem;
+}
+
+#title {
+  padding: 1rem;
+  background-color: #f6f5f5;
+}
+
+.btn-primary {
+  margin: 1rem;
+}
+
+#movie-container-detail {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+.card-title {
+  font-size: 2rem;
+}
+
+.card-text {
+  font-size: 1.5rem;
+}
+
+.btn-info {
+  margin-top: 1rem;
+}
