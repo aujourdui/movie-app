@@ -1,8 +1,5 @@
-* {
-}
-
 .card-container {
-  margin: 30px;
+  margin: 1rem;
 }
 
 .card {
@@ -11,4 +8,29 @@
 
 .card-img-top {
   font-size: 20px;
+}
+
+.card.col-sm {
+  padding: 0;
+}
+
+.header {
+  margin-bottom: 4rem;
+  background-color: #f6f5f5;
+}
+
+#title {
+  padding: 1rem;
+}
+
+.btn-info {
+  margin-top: 1rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
 }
