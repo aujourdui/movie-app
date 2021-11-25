@@ -25,6 +25,8 @@ const fetchMovieGenre = async () => {
     const movieBackdropUrlList = limitedMovies.map(
       (data) => data.backdrop_path
     );
+    const movieOverviewList = limitedMovies.map((data) => data.overview);
+    const movieReleaseDateList = limitedMovies.map((data) => data.release_date);
 
     const createCategoryNameList = () => {
       const movieCategoryNameList = [];
@@ -59,17 +61,16 @@ const fetchMovieGenre = async () => {
       cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
 
       cardList.innerHTML = `
-            <div><img style="width:100%" src= https://image.tmdb.org/t/p/w200${
+            <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
               movieBackdropUrlList[item]
             }></div>
             <div class="card-body">
-              <h5 class="card-title">${movieTitleList[item]}</h5>
-              <h5 class="card-text">${createCategoryNameList()[item]}</h5>
-              <a href="detail.html" id=${item}  button type="button" class="btn btn-info">Go Detail page</button>
+              <h2 class="card-title">${movieTitleList[item]}</h2>
+              <h3 class="card-text">${createCategoryNameList()[item]}</h3>
+              <a href="detail.html" id=${item} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button" class="btn btn-info">Go Detail page</a>
             </div>
             `;
       cardContainer.append(cardList);
-      // onclick="console.log(this.id)"
     };
 
     if (window.location.href == "http://127.0.0.1:5502/index.html") {
@@ -82,26 +83,10 @@ const fetchMovieGenre = async () => {
         }
       };
       createCardList(3, 2);
-
-      // const jumpDetailPage = () => {
-      //   // const button = document.getElementsByClassName("btn-home")[id];
-      //   for (let i = 0; i < 6; i++) {
-      //     const button = document.getElementsByClassName("btn btn-info")[i];
-      //     button.addEventListener("click", (e) => {
-      //       e.preventDefault();
-      //       console.log(`hello ${i}`);
-      //       const jumpPlace =
-      //         document.getElementsByClassName("btn btn-info")[i];
-      //       const jump = document.createElement("div");
-      //       jump.innerHTML = "<a href=/detail.html>Hello</a>";
-      //       jumpPlace.append(jump);
-      //     });
-      //   }
-      // };
-      // jumpDetailPage();
     } else {
       const createDetailCard = (item) => {
         const detail = document.getElementById("movie-container-detail");
+        detail.innerHTML = "";
         const createDetailContainer = document.createElement("div");
         createDetailContainer.setAttribute(
           "class",
@@ -110,25 +95,23 @@ const fetchMovieGenre = async () => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-              <div><img style="width:100%" src= https://image.tmdb.org/t/p/w200${
+              <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
                 movieBackdropUrlList[item]
               }></div>
               <div class="card-body">
-                <h5 class="card-title">${movieTitleList[item]}</h5>
-                <h5 class="card-text">${createCategoryNameList()[item]}</h5>
-                <a href="index.html" id=${item} button type="button" class="btn btn-info">return home page</button>
+                <h1 class="card-title">${movieTitleList[item]}</h1>
+                <h2 class="card-text">${createCategoryNameList()[item]}</h2>
+                <h4>${movieReleaseDateList[item]}</h4>
+                <p>${movieOverviewList[item]}</p>
+                <a href="index.html" id=${item} button type="button" class="btn btn-info">Return Home page</button>
               </div>
               `;
         detail.append(createDetailContainer);
       };
-      createDetailCard(3);
 
-      // const selectDetailCard = (id) => {
-      //   // document.getElementsByClassName("btn btn-info")[id];
-      //   document.getElementById("id");
-      //   createDetailCard(id);
-      // };
-      // selectDetailCard(1);
+      const btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
+      const btnId = parseInt(btnIdStr);
+      createDetailCard(btnId);
     }
   };
   fetchMovie();
