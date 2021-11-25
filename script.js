@@ -1,5 +1,3 @@
-const apiKey = "67a465f165043b63372ea02407bc5582";
-
 // home page
 const fetchMovieGenre = async () => {
   const response = await fetch(
@@ -10,7 +8,7 @@ const fetchMovieGenre = async () => {
 
   const fetchMovie = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&page=1&query=
+      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
       //"movie"&poster_path="string"`
     );
     if (response.status == 200) {
@@ -19,14 +17,12 @@ const fetchMovieGenre = async () => {
       console.log("Something wrong, try again");
     }
     const data = await response.json();
-    const limitedMovies = data.results.slice(0, 30);
-    const movieTitleList = limitedMovies.map((data) => data.title);
-    const movieCategoryIdList = limitedMovies.map((data) => data.genre_ids[0]);
-    const movieBackdropUrlList = limitedMovies.map(
-      (data) => data.backdrop_path
-    );
-    const movieOverviewList = limitedMovies.map((data) => data.overview);
-    const movieReleaseDateList = limitedMovies.map((data) => data.release_date);
+    const result = data.results;
+    const movieTitleList = result.map((data) => data.title);
+    const movieCategoryIdList = result.map((data) => data.genre_ids[0]);
+    const movieBackdropUrlList = result.map((data) => data.backdrop_path);
+    const movieOverviewList = result.map((data) => data.overview);
+    const movieReleaseDateList = result.map((data) => data.release_date);
 
     const createCategoryNameList = () => {
       const movieCategoryNameList = [];
@@ -44,7 +40,6 @@ const fetchMovieGenre = async () => {
       const movieContainer = document.getElementById("movie-container");
       const cardContainer = document.createElement("div");
       cardContainer.setAttribute("class", "row card-container");
-      cardContainer.innerHTML = "";
       movieContainer.append(cardContainer);
     };
 
@@ -78,12 +73,13 @@ const fetchMovieGenre = async () => {
         setCreateCardContainer(column);
         for (let t = 0; t < column; t++) {
           for (let i = 0; i < row; i++) {
-            createCard(t, i + 3 * t);
+            createCard(t, i + row * t);
           }
         }
       };
       createCardList(3, 2);
     } else {
+      // detail page
       const createDetailCard = (item) => {
         const detail = document.getElementById("movie-container-detail");
         detail.innerHTML = "";
@@ -103,7 +99,7 @@ const fetchMovieGenre = async () => {
                 <h2 class="card-text">${createCategoryNameList()[item]}</h2>
                 <h4>${movieReleaseDateList[item]}</h4>
                 <p>${movieOverviewList[item]}</p>
-                <a href="index.html" id=${item} button type="button" class="btn btn-info">Return Home page</button>
+                <a href="index.html" button type="button" class="btn btn-primary">Return Home page</a>
               </div>
               `;
         detail.append(createDetailContainer);
