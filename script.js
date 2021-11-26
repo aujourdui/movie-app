@@ -1,4 +1,4 @@
-// home page
+// for home page
 const fetchMovieGenre = async () => {
   const response = await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
@@ -79,7 +79,7 @@ const fetchMovieGenre = async () => {
       };
       createCardList(3, 2);
     } else {
-      // detail page
+      // for detail page
       const createDetailCard = (item) => {
         const detail = document.getElementById("movie-container-detail");
         detail.innerHTML = "";
