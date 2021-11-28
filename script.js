@@ -1,7 +1,9 @@
 const baseUrl = "https://api.themoviedb.org/3";
-const genreUrl = `${baseUrl}/genre/movie/list/?api_key=${apiKey}`;
+const genreUrl = `${baseUrl}/genre/movie/list/?${apiKey}`;
 const imgUrl = "https://image.tmdb.org/t/p/w500";
-const searchUrl = `${baseUrl}/search/movie?api_key=${apiKey}`;
+const searchUrl = `${baseUrl}/search/movie?${apiKey}&query="movie"`;
+
+// fetchMovie(`${searchUrl}&query="movie"`);
 
 // home page
 const fetchMovieGenre = async (url) => {
@@ -19,11 +21,8 @@ const fetchMovieGenre = async (url) => {
 // `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
 // //"movie"&poster_path="string"`
 
-const fetchMovie = async (url) => {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
-//"movie"&poster_path="string"`
-  );
+const fetchMovie = async () => {
+  const response = await fetch(searchUrl);
   if (response.status == 200) {
     console.log("It's working!");
   } else if (response.status == 404) {
@@ -36,7 +35,7 @@ const fetchMovie = async (url) => {
   const movieBackdropUrlList = result.map((data) => data.backdrop_path);
   const movieOverviewList = result.map((data) => data.overview);
   const movieReleaseDateList = result.map((data) => data.release_date);
-  const genres = await fetchMovieGenre();
+  const genres = await fetchMovieGenre(genreUrl);
 
   const createCategoryNameList = () => {
     const movieCategoryNameList = [];
@@ -69,7 +68,7 @@ const fetchMovie = async (url) => {
     cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
+    <div><img style="width:100%" src= ${imgUrl}${
       movieBackdropUrlList[item]
     }></div>
     <div class="card-body">
@@ -123,9 +122,4 @@ const fetchMovie = async (url) => {
     createDetailCard(btnId);
   }
 };
-
 fetchMovie();
-
-// const main = async () => {
-//   const vo
-// };
