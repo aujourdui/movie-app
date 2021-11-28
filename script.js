@@ -1,7 +1,7 @@
 const baseUrl = "https://api.themoviedb.org/3";
-const genreUrl = `${baseUrl}/genre/movie/list/?api_key=${apiKey}`;
+const genreUrl = `${baseUrl}/genre/movie/list?${apiKey}`;
 const imgUrl = "https://image.tmdb.org/t/p/w500";
-const searchUrl = `${baseUrl}/search/movie?api_key=${apiKey}`;
+const searchUrl = `${baseUrl}/search/movie?${apiKey}&query="movie"`;
 
 // home page
 const fetchMovieGenre = async (url) => {
@@ -16,14 +16,8 @@ const fetchMovieGenre = async (url) => {
   return genres;
 };
 
-// `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
-// //"movie"&poster_path="string"`
-
 const fetchMovie = async (url) => {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
-//"movie"&poster_path="string"`
-  );
+  const response = await fetch(url);
   if (response.status == 200) {
     console.log("It's working!");
   } else if (response.status == 404) {
@@ -31,23 +25,25 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
-  const movieTitleList = result.map((data) => data.title);
-  const movieCategoryIdList = result.map((data) => data.genre_ids[0]);
-  const movieBackdropUrlList = result.map((data) => data.backdrop_path);
-  const movieOverviewList = result.map((data) => data.overview);
-  const movieReleaseDateList = result.map((data) => data.release_date);
-  const genres = await fetchMovieGenre();
+
+  const titleList = result.map((data) => data.title);
+  const categoryIdList = result.map((data) => data.genre_ids[0]);
+  const backdropUrlList = result.map((data) => data.backdrop_path);
+  const overviewList = result.map((data) => data.overview);
+  const releaseDateList = result.map((data) => data.release_date);
+
+  const genres = await fetchMovieGenre(genreUrl);
 
   const createCategoryNameList = () => {
-    const movieCategoryNameList = [];
-    for (let i = 0; i < movieCategoryIdList.length; i++) {
+    const categoryNameList = [];
+    for (let i = 0; i < categoryIdList.length; i++) {
       for (let t = 0; t < genres.length; t++) {
-        if (movieCategoryIdList[i] == genres[t].id) {
-          movieCategoryNameList.push(genres[t].name);
+        if (categoryIdList[i] == genres[t].id) {
+          categoryNameList.push(genres[t].name);
         }
       }
     }
-    return movieCategoryNameList;
+    return categoryNameList;
   };
   const createCardContainer = () => {
     const movieContainer = document.getElementById("movie-container");
@@ -69,11 +65,9 @@ const fetchMovie = async (url) => {
     cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
-      movieBackdropUrlList[item]
-    }></div>
+    <div><img style="width:100%" src= ${imgUrl}${backdropUrlList[item]}></div>
     <div class="card-body">
-      <h2 class="card-title">${movieTitleList[item]}</h2>
+      <h2 class="card-title">${titleList[item]}</h2>
       <h3 class="card-text">${createCategoryNameList()[item]}</h3>
       <a href="detail.html" id=${item} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button" class="btn btn-info">Go Detail page</a>
     </div>
@@ -105,13 +99,13 @@ const fetchMovie = async (url) => {
       );
       createDetailContainer.innerHTML = `
       <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
-        movieBackdropUrlList[item]
+        backdropUrlList[item]
       }></div>
       <div class="card-body">
-        <h1 class="card-title">${movieTitleList[item]}</h1>
+        <h1 class="card-title">${titleList[item]}</h1>
         <h2 class="card-text">${createCategoryNameList()[item]}</h2>
-        <h4>${movieReleaseDateList[item]}</h4>
-        <p>${movieOverviewList[item]}</p>
+        <h4>${releaseDateList[item]}</h4>
+        <p>${overviewList[item]}</p>
         <a href="index.html" button type="button" class="btn btn-primary">Return Home page</a>
       </div>
       `;
@@ -123,9 +117,4 @@ const fetchMovie = async (url) => {
     createDetailCard(btnId);
   }
 };
-
-fetchMovie();
-
-// const main = async () => {
-//   const vo
-// };
+fetchMovie(searchUrl);
