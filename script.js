@@ -70,6 +70,8 @@ const setData = (
   overview,
   releaseDate
 ) => {
+  const itemContainer = document.getElementById("movie-container");
+  itemContainer.innerHTML = "";
   const createCardContainer = () => {
     const movieContainer = document.getElementById("movie-container");
     const cardContainer = document.createElement("div");
@@ -119,6 +121,7 @@ const setData = (
       }
     };
     createCardList(4, 5);
+    // searchByQuery(cardList);
   } else {
     // detail page
     const createDetailCard = (itemIndex) => {
@@ -151,3 +154,19 @@ const setData = (
 };
 
 fetchMovie(popularUrl);
+
+// const searchByQuery = (cardList) => {
+const form = document.getElementById("form");
+const search = document.getElementById("search");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const searchWord = search.value;
+
+  if (searchWord) {
+    fetchMovie(`${searchUrl}&query=${searchWord}`);
+  } else {
+    fetchMovie(popularUrl);
+  }
+});
