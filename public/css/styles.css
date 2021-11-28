@@ -10,11 +10,40 @@ a {
 .header {
   margin-bottom: 4rem;
   background-color: #f6f5f5;
+  display: flex;
+  justify-content: space-between;
 }
 
 #title {
   padding: 1rem;
 }
+
+/* search */
+#search-container {
+  border: 1px solid #ddd;
+  margin: 1rem;
+}
+
+#form {
+  margin: 3px;
+  font-size: 2rem;
+  /* height: 30px; */
+}
+
+#search {
+  width: 80%;
+  height: 40px;
+  border: none;
+  background-color: #f6f5f5;
+}
+
+#search::placeholder {
+  font-size: 2rem;
+}
+
+/* .fas fa-search::before {
+  margin: 1rem;
+} */
 
 /* card */
 
