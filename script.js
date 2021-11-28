@@ -1,6 +1,8 @@
 const baseUrl = "https://api.themoviedb.org/3";
-const genreUrl = `${baseUrl}/genre/movie/list?${apiKey}`;
 const imgUrl = "https://image.tmdb.org/t/p/w500";
+
+const popularUrl = `${baseUrl}/discover/movie?sort_by=popularity.desc&${apiKey}`;
+const genreUrl = `${baseUrl}/genre/movie/list?${apiKey}`;
 const searchUrl = `${baseUrl}/search/movie?${apiKey}&query="movie"`;
 
 // home page
@@ -32,6 +34,7 @@ const createDataList = async (result) => {
   const movieTitleList = result.map((data) => data.title);
   const movieCategoryIdList = result.map((data) => data.genre_ids[0]);
   const movieBackdropUrlList = result.map((data) => data.backdrop_path);
+  const moviePosterUrlList = result.map((data) => data.poster_path);
   const movieOverviewList = result.map((data) => data.overview);
   const movieReleaseDateList = result.map((data) => data.release_date);
   const genres = await fetchMovieGenre(genreUrl);
@@ -53,12 +56,20 @@ const createDataList = async (result) => {
     movieTitleList,
     movieCategoryNameList,
     movieBackdropUrlList,
+    moviePosterUrlList,
     movieOverviewList,
     movieReleaseDateList
   );
 };
 
-const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
+const setData = (
+  title,
+  categoryName,
+  backdropUrl,
+  posterUrl,
+  overview,
+  releaseDate
+) => {
   const createCardContainer = () => {
     const movieContainer = document.getElementById("movie-container");
     const cardContainer = document.createElement("div");
@@ -86,7 +97,7 @@ const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
     });
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
+    <div><img style="width:100%" src= ${imgUrl}${backdropUrl[itemIndex]}></div>
     <div class="card-body">
       <h2 class="card-title">${title[itemIndex]}</h2>
       <h3 class="card-text">${categoryName[itemIndex]}</h3>
@@ -121,7 +132,7 @@ const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
         "width: 100%"
       );
       createDetailContainer.innerHTML = `
-    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
+    <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
     <div class="card-body">
       <h1 class="card-title">${title[itemIndex]}</h1>
       <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -139,4 +150,4 @@ const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
   }
 };
 
-fetchMovie(searchUrl);
+fetchMovie(popularUrl);
