@@ -28,6 +28,10 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
+  createDataList(result);
+};
+
+const createDataList = async (result) => {
   const movieTitleList = result.map((data) => data.title);
   const movieCategoryIdList = result.map((data) => data.genre_ids[0]);
   const movieBackdropUrlList = result.map((data) => data.backdrop_path);
