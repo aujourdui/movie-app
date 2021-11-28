@@ -57,13 +57,7 @@ const fetchMovie = async (url) => {
   );
 };
 
-const setData = (
-  movieTitleList,
-  movieCategoryNameList,
-  movieBackdropUrlList,
-  movieOverviewList,
-  movieReleaseDateList
-) => {
+const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
   const createCardContainer = () => {
     const movieContainer = document.getElementById("movie-container");
     const cardContainer = document.createElement("div");
@@ -77,18 +71,18 @@ const setData = (
     }
   };
 
-  const createCard = (column, item) => {
+  const createCard = (column, itemIndex) => {
     const cardContainer =
       document.getElementsByClassName("card-container")[column];
     const cardList = document.createElement("div");
     cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
 
     cardList.innerHTML = `
-  <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${movieBackdropUrlList[item]}></div>
+  <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
   <div class="card-body">
-    <h2 class="card-title">${movieTitleList[item]}</h2>
-    <h3 class="card-text">${movieCategoryNameList[item]}</h3>
-    <a href="detail.html" id=${item} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button" class="btn btn-info">Go Detail page</a>
+    <h2 class="card-title">${title[itemIndex]}</h2>
+    <h3 class="card-text">${categoryName[itemIndex]}</h3>
+    <a href="detail.html" id=${itemIndex} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button" class="btn btn-info">Go Detail page</a>
   </div>
   `;
     cardContainer.append(cardList);
@@ -106,7 +100,7 @@ const setData = (
     createCardList(4, 5);
   } else {
     // detail page
-    const createDetailCard = (item) => {
+    const createDetailCard = (itemIndex) => {
       const detail = document.getElementById("movie-container-detail");
       detail.innerHTML = "";
       const createDetailContainer = document.createElement("div");
@@ -117,14 +111,12 @@ const setData = (
         "width: 100%"
       );
       createDetailContainer.innerHTML = `
-    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${
-      movieBackdropUrlList[item]
-    }></div>
+    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
     <div class="card-body">
-      <h1 class="card-title">${movieTitleList[item]}</h1>
-      <h2 class="card-text">${createCategoryNameList()[item]}</h2>
-      <h4>${movieReleaseDateList[item]}</h4>
-      <p>${movieOverviewList[item]}</p>
+      <h1 class="card-title">${title[itemIndex]}</h1>
+      <h2 class="card-text">${categoryName[itemIndex]}</h2>
+      <h4>${releaseDate[itemIndex]}</h4>
+      <p>${overview[itemIndex]}</p>
       <a href="index.html" button type="button" class="btn btn-primary">Return Home page</a>
     </div>
     `;
