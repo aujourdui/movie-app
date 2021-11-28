@@ -16,9 +16,6 @@ const fetchMovieGenre = async (url) => {
   return genres;
 };
 
-// `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=
-// //"movie"&poster_path="string"`
-
 const fetchMovie = async (url) => {
   const response = await fetch(url);
   if (response.status == 200) {
@@ -121,7 +118,7 @@ const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
       <h2 class="card-text">${categoryName[itemIndex]}</h2>
       <h4>${releaseDate[itemIndex]}</h4>
       <p>${overview[itemIndex]}</p>
-      <a href="index.html" button type="button" class="btn btn-primary">Return Home page</a>
+      <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
     </div>
     `;
       detail.append(createDetailContainer);

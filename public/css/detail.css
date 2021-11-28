@@ -1,3 +1,8 @@
+.title-link {
+  text-decoration: none;
+  color: black;
+}
+
 .header {
   margin-bottom: 3rem;
 }
