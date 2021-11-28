@@ -75,19 +75,28 @@ const setData = (title, categoryName, backdropUrl, overview, releaseDate) => {
   const createCard = (column, itemIndex) => {
     const cardContainer =
       document.getElementsByClassName("card-container")[column];
-    const cardList = document.createElement("div");
-    cardList.setAttribute("class", "card col-sm", "style", "width: 18rem");
+    const cardList = document.createElement("a");
+    Object.assign(cardList, {
+      className: "card col-sm",
+      style: "width: 18rem",
+      href: "detail.html",
+      onclick: () => {
+        window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
+      },
+    });
 
     cardList.innerHTML = `
-  <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
-  <div class="card-body">
-    <h2 class="card-title">${title[itemIndex]}</h2>
-    <h3 class="card-text">${categoryName[itemIndex]}</h3>
-    <a href="detail.html" id=${itemIndex} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button" class="btn btn-info">Go Detail page</a>
-  </div>
+    <div><img style="width:100%" src= https://image.tmdb.org/t/p/w500${backdropUrl[itemIndex]}></div>
+    <div class="card-body">
+      <h2 class="card-title">${title[itemIndex]}</h2>
+      <h3 class="card-text">${categoryName[itemIndex]}</h3>
+    </div>
   `;
     cardContainer.append(cardList);
   };
+
+  // <a href="detail.html" id=${itemIndex} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button">
+  // </a>
 
   if (window.location.href == "http://127.0.0.1:5500/index.html") {
     const createCardList = (row, column) => {
