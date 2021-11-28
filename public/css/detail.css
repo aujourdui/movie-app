@@ -1,10 +1,12 @@
-.title-link {
-  text-decoration: none;
-  color: black;
-}
+/* header */
 
 .header {
   margin-bottom: 3rem;
+}
+
+.title-link {
+  text-decoration: none;
+  color: black;
 }
 
 #title {
@@ -12,9 +14,7 @@
   background-color: #f6f5f5;
 }
 
-.return {
-  margin: 1rem;
-}
+/* card */
 
 #movie-container-detail {
   display: flex;

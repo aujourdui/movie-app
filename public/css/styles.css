@@ -1,23 +1,11 @@
+/* common */
+
 a {
   text-decoration: none;
   color: black;
 }
 
-.card-container {
-  margin: 1rem;
-}
-
-.card {
-  margin: 10px;
-}
-
-.card-img-top {
-  font-size: 20px;
-}
-
-.card.col-sm {
-  padding: 0;
-}
+/* header */
 
 .header {
   margin-bottom: 4rem;
@@ -28,8 +16,32 @@ a {
   padding: 1rem;
 }
 
-.btn-info {
-  margin-top: 1rem;
+/* card */
+
+.card-container {
+  margin: 1rem;
+}
+
+.card {
+  margin: 20px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  opacity: 0.9;
+  color: black;
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  z-index: 99;
+}
+
+.card-img-top {
+  font-size: 20px;
+}
+
+.card.col-sm {
+  padding: 0;
 }
 
 .card-title {
