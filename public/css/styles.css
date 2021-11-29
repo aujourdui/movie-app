@@ -59,6 +59,7 @@ a {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
   z-index: 99;
+  margin: 0;
 }
 
 .card-img-top {
