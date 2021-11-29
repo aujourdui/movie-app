@@ -41,10 +41,6 @@ a {
   font-size: 2rem;
 }
 
-/* .fas fa-search::before {
-  margin: 1rem;
-} */
-
 /* card */
 
 .card-container {
@@ -79,4 +75,26 @@ a {
 
 .card-text {
   font-size: 1rem;
+}
+
+.card-body span {
+  font-weight: bold;
+  background-color: #f6f5f5;
+  padding: 5px;
+}
+
+.card-body span.green {
+  float: right;
+  color: green;
+  border-radius: 20%;
+}
+
+.card-body span.orange {
+  float: right;
+  color: orange;
+}
+
+.card-body span.red {
+  float: right;
+  color: red;
 }

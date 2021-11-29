@@ -27,6 +27,7 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
+  console.log(result);
   createDataList(result, url);
 };
 
@@ -39,6 +40,7 @@ const createDataList = async (result, url) => {
   const posterUrlList = result.map((data) => data.poster_path);
   const overviewList = result.map((data) => data.overview);
   const releaseDateList = result.map((data) => data.release_date);
+  const voteList = result.map((data) => data.vote_average);
   const genres = await fetchMovieGenre(genreUrl);
 
   const createCategoryNameList = () => {
@@ -82,6 +84,7 @@ const createDataList = async (result, url) => {
     posterUrlList,
     overviewList,
     releaseDateList,
+    voteList,
     url
   );
 };
@@ -93,6 +96,7 @@ const setDataHome = (
   posterUrl,
   overview,
   releaseDate,
+  vote,
   url
 ) => {
   const createCardContainer = () => {
@@ -123,10 +127,13 @@ const setDataHome = (
     });
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= ${imgUrl}${backdropUrl[itemIndex]} onerror="imgError(this)"></div>
+    <div><img style="width:100%" src= ${imgUrl}${
+      backdropUrl[itemIndex]
+    } onerror="imgError(this)"></div>
     <div class="card-body">
       <h2 class="card-title">${title[itemIndex]}</h2>
       <h3 class="card-text">${categoryName[itemIndex]}</h3>
+      <span class=${getColor(vote[itemIndex])}>${vote[itemIndex]}</span>
     </div>
   `;
     cardContainer.append(cardList);
@@ -251,4 +258,14 @@ const imgError = (image) => {
   image.onerror = "";
   image.src = "/public/images/error-image.jpeg";
   return true;
+};
+
+const getColor = (vote) => {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 5) {
+    return "orange";
+  } else {
+    return "red";
+  }
 };
