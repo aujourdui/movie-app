@@ -125,6 +125,13 @@ const setDataHome = (
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
     });
+    console.log(overview);
+    const shortOverviewList = overview.map((overview) =>
+      overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
+    );
+    // console.log(shortOverviewList);
+    const shortOverview =
+      overview.length >= 100 ? overview.substring(0, 100) + " ..." : overview;
 
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
@@ -133,6 +140,8 @@ const setDataHome = (
     <div class="card-body">
       <h2 class="card-title">${title[itemIndex]}</h2>
       <h3 class="card-text">${categoryName[itemIndex]}</h3>
+      <p class="hide">${shortOverviewList[itemIndex]}</p>
+      <p class="hide">${releaseDate[itemIndex]}</p>
       <span class=${getColor(vote[itemIndex])}>${vote[itemIndex]}</span>
     </div>
   `;
