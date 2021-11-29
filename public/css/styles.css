@@ -48,7 +48,7 @@ a {
 }
 
 .card {
-  margin: 20px;
+  margin: 1rem;
   transition: transform 0.2s;
 }
 
@@ -67,6 +67,9 @@ a {
 
 .card.col-sm {
   padding: 0;
+}
+.card.col-sm:hover .hide {
+  display: block;
 }
 
 .card-title {
@@ -97,4 +100,8 @@ a {
 .card-body span.red {
   float: right;
   color: red;
+}
+
+.hide {
+  display: none;
 }
