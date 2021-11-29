@@ -3,7 +3,7 @@ const imgUrl = "https://image.tmdb.org/t/p/w500";
 
 const popularUrl = `${baseUrl}/discover/movie?sort_by=popularity.desc&${apiKey}`;
 const genreUrl = `${baseUrl}/genre/movie/list?${apiKey}`;
-const searchUrl = `${baseUrl}/search/movie?${apiKey}&query="movie"`;
+const searchUrl = `${baseUrl}/search/movie?${apiKey}&query=`;
 
 // home page
 const fetchMovieGenre = async (url) => {
@@ -27,40 +27,62 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
-  createDataList(result);
+  createDataList(result, url);
 };
 
-const createDataList = async (result) => {
-  const movieTitleList = result.map((data) => data.title);
-  const movieCategoryIdList = result.map((data) => data.genre_ids[0]);
-  const movieBackdropUrlList = result.map((data) => data.backdrop_path);
-  const moviePosterUrlList = result.map((data) => data.poster_path);
-  const movieOverviewList = result.map((data) => data.overview);
-  const movieReleaseDateList = result.map((data) => data.release_date);
+const createDataList = async (result, url) => {
+  const titleList = result.map((data) => data.title);
+  const categoryIdList = result.map((data) => data.genre_ids[0]);
+  const backdropUrlList = result.map((data) => data.backdrop_path);
+  const posterUrlList = result.map((data) => data.poster_path);
+  const overviewList = result.map((data) => data.overview);
+  const releaseDateList = result.map((data) => data.release_date);
   const genres = await fetchMovieGenre(genreUrl);
 
   const createCategoryNameList = () => {
-    const movieCategoryNameList = [];
-    for (let i = 0; i < movieCategoryIdList.length; i++) {
+    const categoryNameList = [];
+    for (let i = 0; i < categoryIdList.length; i++) {
       for (let t = 0; t < genres.length; t++) {
-        if (movieCategoryIdList[i] == genres[t].id) {
-          movieCategoryNameList.push(genres[t].name);
+        if (categoryIdList[i] == genres[t].id) {
+          categoryNameList.push(genres[t].name);
         }
       }
     }
-    return movieCategoryNameList;
+    return categoryNameList;
   };
-  const movieCategoryNameList = createCategoryNameList();
+  const categoryNameList = createCategoryNameList();
+
+  if (url !== popularUrl) {
+    window.localStorage.setItem("newTitleList", JSON.stringify(`${titleList}`));
+    window.localStorage.setItem(
+      "newCategoryNameList",
+      JSON.stringify(`${categoryNameList}`)
+    );
+    window.localStorage.setItem(
+      "newPosterUrlList",
+      JSON.stringify(`${posterUrlList}`)
+    );
+    window.localStorage.setItem(
+      "newOverviewList",
+      JSON.stringify(`${overviewList}`)
+    );
+    window.localStorage.setItem(
+      "newReleaseDateList",
+      JSON.stringify(`${releaseDateList}`)
+    );
+  }
 
   setData(
-    movieTitleList,
-    movieCategoryNameList,
-    movieBackdropUrlList,
-    moviePosterUrlList,
-    movieOverviewList,
-    movieReleaseDateList
+    titleList,
+    categoryNameList,
+    backdropUrlList,
+    posterUrlList,
+    overviewList,
+    releaseDateList
   );
 };
+
+var searchedTitle = [];
 
 const setData = (
   title,
@@ -70,8 +92,14 @@ const setData = (
   overview,
   releaseDate
 ) => {
-  const itemContainer = document.getElementById("movie-container");
-  itemContainer.innerHTML = "";
+  // searchedTitle = title;
+  // console.log(searchedTitle);
+  // const searchedCategoryName = categoryName;
+  // const searchedBackdropUrl = backdropUrl;
+  // const searchedPosterUrl = posterUrl;
+  // const searchedOverview = overview;
+  // const searchedReleaseDate = releaseDate;
+
   const createCardContainer = () => {
     const movieContainer = document.getElementById("movie-container");
     const cardContainer = document.createElement("div");
@@ -93,6 +121,7 @@ const setData = (
       className: "card col-sm",
       style: "width: 18rem",
       href: "detail.html",
+      id: `${itemIndex}`,
       onclick: () => {
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
@@ -108,9 +137,6 @@ const setData = (
     cardContainer.append(cardList);
   };
 
-  // <a href="detail.html" id=${itemIndex} onclick="window.localStorage.setItem('btnId', JSON.stringify(this.id))"  button type="button">
-  // </a>
-
   if (window.location.href == "http://127.0.0.1:5500/index.html") {
     const createCardList = (row, column) => {
       setCreateCardContainer(column);
@@ -120,13 +146,34 @@ const setData = (
         }
       }
     };
+    searchByQuery();
     createCardList(4, 5);
-    // searchByQuery(cardList);
   } else {
     // detail page
+    const originalTitle = JSON.parse(
+      window.localStorage.getItem("newTitleList")
+    );
+    const originalCategoryName = JSON.parse(
+      window.localStorage.getItem("newCategoryNameList")
+    );
+    const originalPosterUrl = JSON.parse(
+      window.localStorage.getItem("newPosterUrlList")
+    );
+    const originalOverview = JSON.parse(
+      window.localStorage.getItem("newOverviewList")
+    );
+    const originalReleaseDate = JSON.parse(
+      window.localStorage.getItem("newReleaseDateList")
+    );
+
+    const title = originalTitle.split(",");
+    const categoryName = originalCategoryName.split(",");
+    const posterUrl = originalPosterUrl.split(",");
+    const overview = originalOverview.split(",");
+    const releaseDate = originalReleaseDate.split(",");
+
     const createDetailCard = (itemIndex) => {
       const detail = document.getElementById("movie-container-detail");
-      detail.innerHTML = "";
       const createDetailContainer = document.createElement("div");
       createDetailContainer.setAttribute(
         "class",
@@ -135,14 +182,14 @@ const setData = (
         "width: 100%"
       );
       createDetailContainer.innerHTML = `
-    <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
-    <div class="card-body">
-      <h1 class="card-title">${title[itemIndex]}</h1>
-      <h2 class="card-text">${categoryName[itemIndex]}</h2>
-      <h4>${releaseDate[itemIndex]}</h4>
-      <p>${overview[itemIndex]}</p>
-      <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
-    </div>
+        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
+        <div class="card-body">
+          <h1 class="card-title">${title[itemIndex]}</h1>
+          <h2 class="card-text">${categoryName[itemIndex]}</h2>
+          <h4>${releaseDate[itemIndex]}</h4>
+        <p>${overview[itemIndex]}</p>
+        <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
+        </div>
     `;
       detail.append(createDetailContainer);
     };
@@ -155,18 +202,22 @@ const setData = (
 
 fetchMovie(popularUrl);
 
-// const searchByQuery = (cardList) => {
-const form = document.getElementById("form");
-const search = document.getElementById("search");
+const searchByQuery = () => {
+  const form = document.getElementById("form");
+  const search = document.getElementById("search");
+  const itemContainer = document.getElementById("movie-container");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  const searchWord = search.value;
+    const searchWord = search.value;
 
-  if (searchWord) {
-    fetchMovie(`${searchUrl}&query=${searchWord}`);
-  } else {
-    fetchMovie(popularUrl);
-  }
-});
+    if (searchWord) {
+      itemContainer.innerHTML = "";
+      fetchMovie(`${searchUrl}${searchWord}`);
+    } else {
+      itemContainer.innerHTML = "";
+      fetchMovie(popularUrl);
+    }
+  });
+};
