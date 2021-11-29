@@ -123,7 +123,7 @@ const setDataHome = (
     });
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= ${imgUrl}${backdropUrl[itemIndex]}></div>
+    <div><img style="width:100%" src= ${imgUrl}${backdropUrl[itemIndex]} onerror="imgError(this)"></div>
     <div class="card-body">
       <h2 class="card-title">${title[itemIndex]}</h2>
       <h3 class="card-text">${categoryName[itemIndex]}</h3>
@@ -164,7 +164,6 @@ const setDataHome = (
 
     if (url == popularUrl && newUrl == null) {
       const createDetailCard = (itemIndex) => {
-        console.log(title);
         const detail = document.getElementById("movie-container-detail");
         const createDetailContainer = document.createElement("div");
         createDetailContainer.setAttribute(
@@ -224,70 +223,6 @@ const setDataHome = (
       createDetailCard(btnId);
       localStorage.clear();
     }
-
-    // if (newUrl !== popularUrl) {
-    //   // console.log(popularUrl);
-    //   const title = originalTitle.split(",");
-    //   const categoryName = originalCategoryName.split(",");
-    //   const posterUrl = originalPosterUrl.split(",");
-    //   const overview = originalOverview.split(",");
-    //   const releaseDate = originalReleaseDate.split(",");
-
-    //   const createDetailCard = (itemIndex) => {
-    //     const detail = document.getElementById("movie-container-detail");
-    //     const createDetailContainer = document.createElement("div");
-    //     createDetailContainer.setAttribute(
-    //       "class",
-    //       "card col-md-8",
-    //       "style",
-    //       "width: 100%"
-    //     );
-    //     createDetailContainer.innerHTML = `
-    //     <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
-    //     <div class="card-body">
-    //       <h1 class="card-title">${title[itemIndex]}</h1>
-    //       <h2 class="card-text">${categoryName[itemIndex]}</h2>
-    //       <h4>${releaseDate[itemIndex]}</h4>
-    //     <p>${overview[itemIndex]}</p>
-    //     <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
-    //     </div>
-    // `;
-    //     detail.append(createDetailContainer);
-    //   };
-
-    //   const btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
-    //   const btnId = parseInt(btnIdStr);
-    //   createDetailCard(btnId);
-    //   localStorage.clear();
-    // } else {
-    //   const createDetailCard = (itemIndex) => {
-    //     console.log(title);
-    //     const detail = document.getElementById("movie-container-detail");
-    //     const createDetailContainer = document.createElement("div");
-    //     createDetailContainer.setAttribute(
-    //       "class",
-    //       "card col-md-8",
-    //       "style",
-    //       "width: 100%"
-    //     );
-    //     createDetailContainer.innerHTML = `
-    //     <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
-    //     <div class="card-body">
-    //       <h1 class="card-title">${title[itemIndex]}</h1>
-    //       <h2 class="card-text">${categoryName[itemIndex]}</h2>
-    //       <h4>${releaseDate[itemIndex]}</h4>
-    //     <p>${overview[itemIndex]}</p>
-    //     <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
-    //     </div>
-    // `;
-    //     detail.append(createDetailContainer);
-    //   };
-
-    //   const btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
-    //   const btnId = parseInt(btnIdStr);
-    //   createDetailCard(btnId);
-    //   localStorage.clear();
-    // }
   }
 };
 
@@ -310,4 +245,10 @@ const searchByQuery = () => {
       alert("please input any value");
     }
   });
+};
+
+const imgError = (image) => {
+  image.onerror = "";
+  image.src = "/public/images/error-image.jpeg";
+  return true;
 };
