@@ -245,12 +245,6 @@ const imgError = (image) => {
   return true;
 };
 
-const imgErrorDetail = (image) => {
-  image.onerror = "";
-  image.src = "/public/images/error-image-detail.png";
-  return true;
-};
-
 const getColor = (vote) => {
   if (vote >= 8) {
     return "green";
