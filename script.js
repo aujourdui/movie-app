@@ -189,7 +189,7 @@ const setDataHome = (
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
+        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgError(this)"}></div>
         <div class="card-body">
           <h1 class="card-title">${title[itemIndex]}</h1>
           <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -222,7 +222,7 @@ const setDataHome = (
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]}></div>
+        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgError(this)"></div>
         <div class="card-body">
           <h1 class="card-title">${title[itemIndex]}</h1>
           <h2 class="card-text">${categoryName[itemIndex]}</h2>
