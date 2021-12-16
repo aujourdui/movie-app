@@ -123,7 +123,6 @@ const setDataHome = (
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
     });
-    console.log(overview);
     const shortOverviewList = overview.map((overview) =>
       overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
     );
