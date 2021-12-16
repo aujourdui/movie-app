@@ -1,9 +1,15 @@
-const express = require("express");
-const app = express("script.js");
+import express from "express";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const app = express();
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
@@ -12,6 +18,6 @@ if (port == null || port == "") {
   port = 3000;
 }
 
-app.listen(port, function () {
+app.listen(port, () => {
   console.log("Server has started successfully");
 });
