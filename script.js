@@ -189,7 +189,7 @@ const setDataHome = (
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgError(this)"}></div>
+        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgErrorDetail(this)"}></div>
         <div class="card-body">
           <h1 class="card-title">${title[itemIndex]}</h1>
           <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -222,7 +222,7 @@ const setDataHome = (
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgError(this)"></div>
+        <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgErrorDetail(this)"></div>
         <div class="card-body">
           <h1 class="card-title">${title[itemIndex]}</h1>
           <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -266,6 +266,12 @@ const searchByQuery = () => {
 const imgError = (image) => {
   image.onerror = "";
   image.src = "/public/images/error-image.jpeg";
+  return true;
+};
+
+const imgErrorDetail = (image) => {
+  image.onerror = "";
+  image.src = "/public/images/error-image-detail.png";
   return true;
 };
 
