@@ -31,8 +31,6 @@ const fetchMovie = async (url) => {
   createDataList(result, url);
 };
 
-// var newUrl = null;
-
 const createDataList = async (result, url) => {
   const titleList = result.map((data) => data.title);
   const categoryIdList = result.map((data) => data.genre_ids[0]);
