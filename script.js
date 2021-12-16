@@ -1,3 +1,4 @@
+const apiKey = "api_key=67a465f165043b63372ea02407bc5582";
 const baseUrl = "https://api.themoviedb.org/3";
 const imgUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -27,7 +28,6 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
-  console.log(result);
   createDataList(result, url);
 };
 
@@ -129,9 +129,6 @@ const setDataHome = (
     const shortOverviewList = overview.map((overview) =>
       overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
     );
-    // console.log(shortOverviewList);
-    const shortOverview =
-      overview.length >= 100 ? overview.substring(0, 100) + " ..." : overview;
 
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
@@ -148,7 +145,7 @@ const setDataHome = (
     cardContainer.append(cardList);
   };
 
-  if (window.location.href.indexOf("index.html") > -1) {
+  if (window.location.href.indexOf("index.html") > 0) {
     const createCardList = (row, column) => {
       setCreateCardContainer(column);
       for (let t = 0; t < column; t++) {
