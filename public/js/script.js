@@ -102,7 +102,7 @@ const displayMovie = async (result, url) => {
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
       backdropUrlList[itemIndex]
-    } onerror="this.onerror=null;this.src='/public/images/error-image.jpeg'"></div>
+    } onerror="this.onerror=null;this.src='images/error-image.jpeg'"></div>
     <div class="card-body">
       <h2 class="card-title">${titleList[itemIndex]}</h2>
       <h3 class="card-text">${categoryNameList[itemIndex]}</h3>
@@ -114,18 +114,7 @@ const displayMovie = async (result, url) => {
     cardContainer.append(cardList);
   };
 
-  if (window.location.href.indexOf("index.html") > 0) {
-    const createCardList = (row, column) => {
-      setCreateCardContainer(column);
-      for (let t = 0; t < column; t++) {
-        for (let i = 0; i < row; i++) {
-          createCard(t, i + row * t);
-        }
-      }
-    };
-    searchByQuery();
-    createCardList(4, 5);
-  } else {
+  if (window.location.href.indexOf("detail.html") > 0) {
     // detail page
     const originalTitle = JSON.parse(
       window.localStorage.getItem("newTitleList")
@@ -155,7 +144,7 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"}></div>
+            <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.png'"}></div>
             <div class="card-body">
               <h1 class="card-title">${titleList[itemIndex]}</h1>
               <h2 class="card-text">${categoryNameList[itemIndex]}</h2>
@@ -188,7 +177,7 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"></div>
+            <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.png'"></div>
             <div class="card-body">
               <h1 class="card-title">${title[itemIndex]}</h1>
               <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -205,8 +194,113 @@ const displayMovie = async (result, url) => {
       createDetailCard(btnId);
       localStorage.clear();
     }
+  } else {
+    const createCardList = (row, column) => {
+      setCreateCardContainer(column);
+      for (let t = 0; t < column; t++) {
+        for (let i = 0; i < row; i++) {
+          createCard(t, i + row * t);
+        }
+      }
+    };
+    searchByQuery();
+    createCardList(4, 5);
   }
 };
+
+//   if (window.location.href.indexOf("index.html") > 0) {
+//     const createCardList = (row, column) => {
+//       setCreateCardContainer(column);
+//       for (let t = 0; t < column; t++) {
+//         for (let i = 0; i < row; i++) {
+//           createCard(t, i + row * t);
+//         }
+//       }
+//     };
+//     searchByQuery();
+//     createCardList(4, 5);
+//   } else {
+//     // detail page
+//     const originalTitle = JSON.parse(
+//       window.localStorage.getItem("newTitleList")
+//     );
+//     const originalCategoryName = JSON.parse(
+//       window.localStorage.getItem("newCategoryNameList")
+//     );
+//     const originalPosterUrl = JSON.parse(
+//       window.localStorage.getItem("newPosterUrlList")
+//     );
+//     const originalOverview = JSON.parse(
+//       window.localStorage.getItem("newOverviewList")
+//     );
+//     const originalReleaseDate = JSON.parse(
+//       window.localStorage.getItem("newReleaseDateList")
+//     );
+//     const newUrl = JSON.parse(window.localStorage.getItem("url"));
+
+//     if (url == popularUrl && newUrl == null) {
+//       const createDetailCard = (itemIndex) => {
+//         const detail = document.getElementById("movie-container-detail");
+//         const createDetailContainer = document.createElement("div");
+//         createDetailContainer.setAttribute(
+//           "class",
+//           "card col-md-8",
+//           "style",
+//           "width: 100%"
+//         );
+//         createDetailContainer.innerHTML = `
+//             <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"}></div>
+//             <div class="card-body">
+//               <h1 class="card-title">${titleList[itemIndex]}</h1>
+//               <h2 class="card-text">${categoryNameList[itemIndex]}</h2>
+//               <h4>${releaseDateList[itemIndex]}</h4>
+//             <p>${overviewList[itemIndex]}</p>
+//             <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
+//             </div>
+//         `;
+//         detail.append(createDetailContainer);
+//       };
+
+//       const btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
+//       const btnId = parseInt(btnIdStr);
+//       createDetailCard(btnId);
+//       localStorage.clear();
+//     } else {
+//       const title = originalTitle.split(",");
+//       const categoryName = originalCategoryName.split(",");
+//       const posterUrl = originalPosterUrl.split(",");
+//       const overview = originalOverview.split(",");
+//       const releaseDate = originalReleaseDate.split(",");
+
+//       const createDetailCard = (itemIndex) => {
+//         const detail = document.getElementById("movie-container-detail");
+//         const createDetailContainer = document.createElement("div");
+//         createDetailContainer.setAttribute(
+//           "class",
+//           "card col-md-8",
+//           "style",
+//           "width: 100%"
+//         );
+//         createDetailContainer.innerHTML = `
+//             <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"></div>
+//             <div class="card-body">
+//               <h1 class="card-title">${title[itemIndex]}</h1>
+//               <h2 class="card-text">${categoryName[itemIndex]}</h2>
+//               <h4>${releaseDate[itemIndex]}</h4>
+//             <p>${overview[itemIndex]}</p>
+//             <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
+//             </div>
+//         `;
+//         detail.append(createDetailContainer);
+//       };
+
+//       const btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
+//       const btnId = parseInt(btnIdStr);
+//       createDetailCard(btnId);
+//       localStorage.clear();
+//     }
+//   }
+// };
 
 const createCategoryNameList = (categoryIdList, genres) => {
   const categoryNameList = [];
@@ -235,12 +329,6 @@ const searchByQuery = () => {
       alert("please input any value");
     }
   });
-};
-
-const imgErrorDetail = (image) => {
-  image.onerror = "";
-  image.src = "/public/images/error-image-detail.jpeg";
-  return true;
 };
 
 const getColor = (vote) => {
