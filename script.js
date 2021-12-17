@@ -130,7 +130,7 @@ const setDataHome = (
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
       backdropUrl[itemIndex]
-    } onerror="imgError(this)"></div>
+    } onerror="this.onerror=null;this.src='/public/images/error-image.jpeg'"></div>
     <div class="card-body">
       <h2 class="card-title">${title[itemIndex]}</h2>
       <h3 class="card-text">${categoryName[itemIndex]}</h3>
@@ -255,12 +255,6 @@ const searchByQuery = () => {
       alert("please input any value");
     }
   });
-};
-
-const imgError = (image) => {
-  image.onerror = "";
-  image.src = "/public/images/error-image.jpeg";
-  return true;
 };
 
 const imgErrorDetail = (image) => {
