@@ -7,7 +7,6 @@ const genreUrl = `${baseUrl}/genre/movie/list?${apiKey}`;
 const searchUrl = `${baseUrl}/search/movie?${apiKey}&query=`;
 
 const movieContainer = document.getElementById("movie-container");
-const cardContainer = document.createElement("div");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 
@@ -33,7 +32,6 @@ const fetchMovie = async (url) => {
   }
   const data = await response.json();
   const result = data.results;
-  // console.log(result);
   displayMovie(result, url);
 };
 
@@ -101,16 +99,19 @@ const displayMovie = async (result, url) => {
     );
 
     cardList.innerHTML = `
-    <div><img style="width:100%" src= ${imgUrl}${
-      backdropUrlList[itemIndex]
-    } onerror="this.onerror=null;this.src='images/error-image.jpeg'"></div>
-    <div class="card-body">
-      <h2 class="card-title">${titleList[itemIndex]}</h2>
-      <h3 class="card-text">${categoryNameList[itemIndex]}</h3>
-      <p class="hide">${shortOverviewList[itemIndex]}</p>
-      <p class="hide">${releaseDateList[itemIndex]}</p>
-      <span class=${getColor(voteList[itemIndex])}>${voteList[itemIndex]}</span>
-    </div>
+      <div>
+        <img style="width:100%" src= ${imgUrl}${backdropUrlList[itemIndex]}
+        onerror="this.onerror=null;this.src='images/error-image.jpeg'">
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">${titleList[itemIndex]}</h2>
+        <h3 class="card-text">${categoryNameList[itemIndex]}</h3>
+        <p class="hide">${shortOverviewList[itemIndex]}</p>
+        <p class="hide">${releaseDateList[itemIndex]}</p>
+        <span class=${getColor(voteList[itemIndex])}>
+          ${voteList[itemIndex]}
+        </span>
+      </div>
   `;
     cardContainer.append(cardList);
   };
@@ -145,15 +146,21 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.jpeg'"}></div>
+          <div class="detail-card">
+            <div>
+              <img class="card-image__detail" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.jpeg'"}>
+            </div>
             <div class="card-body">
-              <h1 class="card-title">${titleList[itemIndex]}</h1>
+              <h1 class="card-title" class="card-title__detail">${titleList[itemIndex]}</h1>
               <h2 class="card-text">${categoryNameList[itemIndex]}</h2>
               <h4>${releaseDateList[itemIndex]}</h4>
-            <p>${overviewList[itemIndex]}</p>
-            <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
+              <p>${overviewList[itemIndex]}</p>
+              <a href="index.html" button type="button" class="btn btn-primary">
+                Return to Home
+              </a>
             </div>
-        `;
+          </div>
+          `;
         detail.append(createDetailContainer);
       };
 
@@ -178,15 +185,21 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.jpeg'"></div>
-            <div class="card-body">
+          <div class="detail-card">
+            <div>
+              <img class="card-image__detail" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.jpeg'">
+            </div>
+            <div class="card-body" class="card-title__detail">
               <h1 class="card-title">${title[itemIndex]}</h1>
               <h2 class="card-text">${categoryName[itemIndex]}</h2>
               <h4>${releaseDate[itemIndex]}</h4>
-            <p>${overview[itemIndex]}</p>
-            <a href="index.html" button type="button" class="btn btn-primary">Return to Home</a>
+              <p>${overview[itemIndex]}</p>
+              <a href="index.html" button type="button" class="btn btn-primary">
+                Return to Home
+              </a>
             </div>
-        `;
+          </div>
+          `;
         detail.append(createDetailContainer);
       };
 
@@ -196,6 +209,7 @@ const displayMovie = async (result, url) => {
       localStorage.clear();
     }
   } else {
+    // home page
     const createCardList = (row, column) => {
       setCreateCardContainer(column);
       for (let t = 0; t < column; t++) {
