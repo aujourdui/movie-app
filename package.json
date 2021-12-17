@@ -10,7 +10,6 @@
   "type": "module",
   "version": "1.0.0",
   "main": "script.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aujourdui/movieAPI-app.git"
