@@ -1,7 +1,19 @@
-/* header */
+/* common */
 
+body {
+  background-color: #f6f5f5;
+}
+
+/* header */
 .header {
-  margin-bottom: 3rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  margin-bottom: 4rem;
+  background-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title-link {
@@ -10,8 +22,13 @@
 }
 
 #title {
+  font-family: "Bebas Neue", cursive;
   padding: 1rem;
-  background-color: #f6f5f5;
+  margin-left: 1rem;
+}
+
+.title-link {
+  color: white;
 }
 
 /* card */
