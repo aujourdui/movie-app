@@ -1,4 +1,6 @@
+// import apiKey from "./config.js";
 const apiKey = "api_key=67a465f165043b63372ea02407bc5582";
+
 const baseUrl = "https://api.themoviedb.org/3";
 const imgUrl = "https://image.tmdb.org/t/p/w500";
 
