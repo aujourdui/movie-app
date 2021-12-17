@@ -116,6 +116,15 @@ const displayMovie = async (result, url) => {
     cardContainer.append(cardList);
   };
 
+  const createCardList = (row, column) => {
+    setCreateCardContainer(column);
+    for (let t = 0; t < column; t++) {
+      for (let i = 0; i < row; i++) {
+        createCard(t, i + row * t);
+      }
+    }
+  };
+
   if (window.location.href.indexOf("detail.html") > 0) {
     // detail page
     const originalTitle = JSON.parse(
@@ -156,7 +165,7 @@ const displayMovie = async (result, url) => {
               <h4>${releaseDateList[itemIndex]}</h4>
               <p>${overviewList[itemIndex]}</p>
               <a href="index.html" button type="button" class="btn btn-primary">
-                Return to Home
+                > Back
               </a>
             </div>
           </div>
@@ -194,9 +203,9 @@ const displayMovie = async (result, url) => {
               <h2 class="card-text">${categoryName[itemIndex]}</h2>
               <h4>${releaseDate[itemIndex]}</h4>
               <p>${overview[itemIndex]}</p>
-              <a href="index.html" button type="button" class="btn btn-primary">
-                Return to Home
-              </a>
+                <a href="index.html" type="button" class="btn btn-primary">
+                  > Back
+                </a>
             </div>
           </div>
           `;
@@ -210,14 +219,6 @@ const displayMovie = async (result, url) => {
     }
   } else {
     // home page
-    const createCardList = (row, column) => {
-      setCreateCardContainer(column);
-      for (let t = 0; t < column; t++) {
-        for (let i = 0; i < row; i++) {
-          createCard(t, i + row * t);
-        }
-      }
-    };
     searchByQuery();
     createCardList(4, 5);
   }
@@ -242,6 +243,7 @@ const searchByQuery = () => {
     e.preventDefault();
 
     const searchWord = search.value;
+    window.localStorage.setItem("searchWord", JSON.stringify(`${searchWord}`));
     if (searchWord) {
       movieContainer.innerHTML = "";
       fetchMovie(`${searchUrl}${searchWord}`);
