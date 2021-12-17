@@ -95,13 +95,17 @@ const displayMovie = async (result, url) => {
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
     });
+
     const shortOverviewList = overviewList.map((overview) =>
+
       overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
     );
 
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
+
       backdropUrlList[itemIndex]
+
     } onerror="this.onerror=null;this.src='/public/images/error-image.jpeg'"></div>
     <div class="card-body">
       <h2 class="card-title">${titleList[itemIndex]}</h2>
@@ -155,7 +159,9 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
+
             <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"}></div>
+
             <div class="card-body">
               <h1 class="card-title">${titleList[itemIndex]}</h1>
               <h2 class="card-text">${categoryNameList[itemIndex]}</h2>
@@ -188,7 +194,9 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
+
             <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='/public/images/error-image-detail.png'"></div>
+
             <div class="card-body">
               <h1 class="card-title">${title[itemIndex]}</h1>
               <h2 class="card-text">${categoryName[itemIndex]}</h2>
