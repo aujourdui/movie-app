@@ -95,38 +95,27 @@ const displayMovie = async (result, url) => {
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
     });
-    const shortOverviewList = overview.map((overview) =>
-    
+
+    const shortOverviewList = overviewList.map((overview) =>
       overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
     );
 
     cardList.innerHTML = `
     <div><img style="width:100%" src= ${imgUrl}${
-      backdropUrl[itemIndex]
-    } onerror="this.onerror=null;this.src='/public/images/error-image.jpeg'"></div>
+      backdropUrlList[itemIndex]
+    } onerror="this.onerror=null;this.src='images/error-image.jpeg'"></div>
     <div class="card-body">
-      <h2 class="card-title">${title[itemIndex]}</h2>
-      <h3 class="card-text">${categoryName[itemIndex]}</h3>
+      <h2 class="card-title">${titleList[itemIndex]}</h2>
+      <h3 class="card-text">${categoryNameList[itemIndex]}</h3>
       <p class="hide">${shortOverviewList[itemIndex]}</p>
-      <p class="hide">${releaseDate[itemIndex]}</p>
-      <span class=${getColor(vote[itemIndex])}>${vote[itemIndex]}</span>
+      <p class="hide">${releaseDateList[itemIndex]}</p>
+      <span class=${getColor(voteList[itemIndex])}>${voteList[itemIndex]}</span>
     </div>
   `;
     cardContainer.append(cardList);
   };
 
-  if (window.location.href.indexOf("index.html") > 0) {
-    const createCardList = (row, column) => {
-      setCreateCardContainer(column);
-      for (let t = 0; t < column; t++) {
-        for (let i = 0; i < row; i++) {
-          createCard(t, i + row * t);
-        }
-      }
-    };
-    searchByQuery();
-    createCardList(4, 5);
-  } else {
+  if (window.location.href.indexOf("detail.html") > 0) {
     // detail page
     const originalTitle = JSON.parse(
       window.localStorage.getItem("newTitleList")
@@ -156,7 +145,7 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="imgErrorDetail(this)"}></div>
+            <div><img style="width:100%" src= ${imgUrl}${posterUrlList[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.png'"}></div>
             <div class="card-body">
               <h1 class="card-title">${titleList[itemIndex]}</h1>
               <h2 class="card-text">${categoryNameList[itemIndex]}</h2>
@@ -189,7 +178,7 @@ const displayMovie = async (result, url) => {
           "width: 100%"
         );
         createDetailContainer.innerHTML = `
-            <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="imgErrorDetail(this)"></div>
+            <div><img style="width:100%" src= ${imgUrl}${posterUrl[itemIndex]} onerror="this.onerror=null;this.src='images/error-image-detail.png'"></div>
             <div class="card-body">
               <h1 class="card-title">${title[itemIndex]}</h1>
               <h2 class="card-text">${categoryName[itemIndex]}</h2>
@@ -206,6 +195,17 @@ const displayMovie = async (result, url) => {
       createDetailCard(btnId);
       localStorage.clear();
     }
+  } else {
+    const createCardList = (row, column) => {
+      setCreateCardContainer(column);
+      for (let t = 0; t < column; t++) {
+        for (let i = 0; i < row; i++) {
+          createCard(t, i + row * t);
+        }
+      }
+    };
+    searchByQuery();
+    createCardList(4, 5);
   }
 };
 
@@ -236,12 +236,6 @@ const searchByQuery = () => {
       alert("please input any value");
     }
   });
-};
-
-const imgErrorDetail = (image) => {
-  image.onerror = "";
-  image.src = "/public/images/error-image.jpeg";
-  return true;
 };
 
 const getColor = (vote) => {
