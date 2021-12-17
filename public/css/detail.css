@@ -27,6 +27,12 @@ body {
   margin-left: 1rem;
 }
 
+@media (max-width: 45rem) {
+  #title {
+    margin-left: 0;
+  }
+}
+
 .title-link {
   color: white;
 }
@@ -65,4 +71,10 @@ body {
   .card-image__detail {
     width: 100vw;
   }
+}
+
+.btn.btn-primary {
+  border: 1px solid lightgray;
+  background-color: transparent;
+  color: gray;
 }
