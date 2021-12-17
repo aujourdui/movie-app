@@ -95,24 +95,23 @@ const displayMovie = async (result, url) => {
         window.localStorage.setItem("btnId", JSON.stringify(`${itemIndex}`));
       },
     });
-    const shortOverviewList = overviewList.map((overview) =>
+    const shortOverviewList = overview.map((overview) =>
+    
       overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview
     );
 
     cardList.innerHTML = `
-        <div><img style="width:100%" src= ${imgUrl}${
-      backdropUrlList[itemIndex]
-    } onerror="imgError(this)"></div>
-        <div class="card-body">
-          <h2 class="card-title">${titleList[itemIndex]}</h2>
-          <h3 class="card-text">${categoryNameList[itemIndex]}</h3>
-          <p class="hide">${shortOverviewList[itemIndex]}</p>
-          <p class="hide">${releaseDateList[itemIndex]}</p>
-          <span class=${getColor(voteList[itemIndex])}>${
-      voteList[itemIndex]
-    }</span>
-        </div>
-      `;
+    <div><img style="width:100%" src= ${imgUrl}${
+      backdropUrl[itemIndex]
+    } onerror="this.onerror=null;this.src='/public/images/error-image.jpeg'"></div>
+    <div class="card-body">
+      <h2 class="card-title">${title[itemIndex]}</h2>
+      <h3 class="card-text">${categoryName[itemIndex]}</h3>
+      <p class="hide">${shortOverviewList[itemIndex]}</p>
+      <p class="hide">${releaseDate[itemIndex]}</p>
+      <span class=${getColor(vote[itemIndex])}>${vote[itemIndex]}</span>
+    </div>
+  `;
     cardContainer.append(cardList);
   };
 
@@ -237,12 +236,6 @@ const searchByQuery = () => {
       alert("please input any value");
     }
   });
-};
-
-const imgError = (image) => {
-  image.onerror = "";
-  image.src = "/public/images/error-image.jpeg";
-  return true;
 };
 
 const imgErrorDetail = (image) => {
