@@ -25,3 +25,28 @@
 .btn-primary {
   margin-top: 1rem;
 }
+
+.detail-card {
+  display: flex;
+}
+
+@media (max-width: 45rem) {
+  .detail-card {
+    display: block;
+  }
+}
+
+.card-title__detail {
+  margin-bottom: 1rem;
+}
+
+.card-image__detail {
+  width: 25vw;
+  margin-right: 1rem;
+}
+
+@media (max-width: 45rem) {
+  .card-image__detail {
+    width: 100vw;
+  }
+}
