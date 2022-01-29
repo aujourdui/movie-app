@@ -16,13 +16,13 @@
   },
   "scripts": {
     "start": "node server.js",
-    "tsc:w": "tsc -w --outDir build",
-    "dev-server": "webpack-dev-server"
+    "tsc:w": "tsc -w --outDir build"
   },
   "name": "movieapi-app",
   "description": "This is movieAPI app",
   "version": "1.0.0",
   "main": "script.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aujourdui/movieAPI-app.git"
