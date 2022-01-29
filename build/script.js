@@ -38,9 +38,9 @@ var _this = this;
 var apiKey = "api_key=67a465f165043b63372ea02407bc5582";
 var baseUrl = "https://api.themoviedb.org/3";
 var imgUrl = "https://image.tmdb.org/t/p/w500";
-var popularUrl = baseUrl + "/discover/movie?sort_by=popularity.desc&" + apiKey;
-var genreUrl = baseUrl + "/genre/movie/list?" + apiKey;
-var searchUrl = baseUrl + "/search/movie?" + apiKey + "&query=";
+var popularUrl = "".concat(baseUrl, "/discover/movie?sort_by=popularity.desc&").concat(apiKey);
+var genreUrl = "".concat(baseUrl, "/genre/movie/list?").concat(apiKey);
+var searchUrl = "".concat(baseUrl, "/search/movie?").concat(apiKey, "&query=");
 var movieContainer = document.getElementById("movie-container");
 var form = document.getElementById("form");
 var search = document.getElementById("search");
@@ -105,11 +105,11 @@ var displayMovie = function (result, url) { return __awaiter(_this, void 0, void
                 genres = _a.sent();
                 categoryNameList = createCategoryNameList(categoryIdList, genres);
                 if (url !== popularUrl) {
-                    window.localStorage.setItem("newTitleList", JSON.stringify("" + titleList));
-                    window.localStorage.setItem("newCategoryNameList", JSON.stringify("" + categoryNameList));
-                    window.localStorage.setItem("newPosterUrlList", JSON.stringify("" + posterUrlList));
-                    window.localStorage.setItem("newOverviewList", JSON.stringify("" + overviewList));
-                    window.localStorage.setItem("newReleaseDateList", JSON.stringify("" + releaseDateList));
+                    window.localStorage.setItem("newTitleList", JSON.stringify("".concat(titleList)));
+                    window.localStorage.setItem("newCategoryNameList", JSON.stringify("".concat(categoryNameList)));
+                    window.localStorage.setItem("newPosterUrlList", JSON.stringify("".concat(posterUrlList)));
+                    window.localStorage.setItem("newOverviewList", JSON.stringify("".concat(overviewList)));
+                    window.localStorage.setItem("newReleaseDateList", JSON.stringify("".concat(releaseDateList)));
                     window.localStorage.setItem("url", JSON.stringify(url));
                 }
                 createCardContainer = function () {
@@ -130,15 +130,15 @@ var displayMovie = function (result, url) { return __awaiter(_this, void 0, void
                         className: "card col-sm",
                         style: "width: 18rem",
                         href: "detail.html",
-                        id: "" + itemIndex,
+                        id: "".concat(itemIndex),
                         onclick: function () {
-                            window.localStorage.setItem("btnId", JSON.stringify("" + itemIndex));
-                        }
+                            window.localStorage.setItem("btnId", JSON.stringify("".concat(itemIndex)));
+                        },
                     });
                     var shortOverviewList = overviewList.map(function (overview) {
                         return overview.length >= 50 ? overview.substring(0, 50) + " ..." : overview;
                     });
-                    cardList.innerHTML = "\n      <div>\n        <img style=\"width:100%\" src= " + imgUrl + backdropUrlList[itemIndex] + "\n        onerror=\"this.onerror=null;this.src='images/error-image.jpeg'\">\n      </div>\n      <div class=\"card-body\">\n        <h2 class=\"card-title\">" + titleList[itemIndex] + "</h2>\n        <h3 class=\"card-text\">" + categoryNameList[itemIndex] + "</h3>\n        <p class=\"hide\">" + shortOverviewList[itemIndex] + "</p>\n        <p class=\"hide\">" + releaseDateList[itemIndex] + "</p>\n        <span class=" + getColor(voteList[itemIndex]) + ">\n          " + voteList[itemIndex] + "\n        </span>\n      </div>\n  ";
+                    cardList.innerHTML = "\n      <div>\n        <img style=\"width:100%\" src= ".concat(imgUrl).concat(backdropUrlList[itemIndex], "\n        onerror=\"this.onerror=null;this.src='images/error-image.jpeg'\">\n      </div>\n      <div class=\"card-body\">\n        <h2 class=\"card-title\">").concat(titleList[itemIndex], "</h2>\n        <h3 class=\"card-text\">").concat(categoryNameList[itemIndex], "</h3>\n        <p class=\"hide\">").concat(shortOverviewList[itemIndex], "</p>\n        <p class=\"hide\">").concat(releaseDateList[itemIndex], "</p>\n        <span class=").concat(getColor(voteList[itemIndex]), ">\n          ").concat(voteList[itemIndex], "\n        </span>\n      </div>\n  ");
                     cardContainer.append(cardList);
                 };
                 createCardList = function (row, column) {
@@ -161,7 +161,7 @@ var displayMovie = function (result, url) { return __awaiter(_this, void 0, void
                             var detail = document.getElementById("movie-container-detail");
                             var createDetailContainer = document.createElement("div");
                             createDetailContainer.setAttribute("class", "card col-md-8");
-                            createDetailContainer.innerHTML = "\n          <div class=\"detail-card\">\n            <div>\n              <img class=\"card-image__detail\" src= " + imgUrl + posterUrlList[itemIndex] + " onerror=\"this.onerror=null;this.src='images/error-image-detail.jpeg'\"}>\n            </div>\n            <div class=\"card-body\">\n              <h1 class=\"card-title\" class=\"card-title__detail\">" + titleList[itemIndex] + "</h1>\n              <h2 class=\"card-text\">" + categoryNameList[itemIndex] + "</h2>\n              <h4>" + releaseDateList[itemIndex] + "</h4>\n              <p>" + overviewList[itemIndex] + "</p>\n              <a href=\"index.html\" button type=\"button\" class=\"btn btn-primary\">\n                > Back\n              </a>\n            </div>\n          </div>\n          ";
+                            createDetailContainer.innerHTML = "\n          <div class=\"detail-card\">\n            <div>\n              <img class=\"card-image__detail\" src= ".concat(imgUrl).concat(posterUrlList[itemIndex], " onerror=\"this.onerror=null;this.src='images/error-image-detail.jpeg'\"}>\n            </div>\n            <div class=\"card-body\">\n              <h1 class=\"card-title\" class=\"card-title__detail\">").concat(titleList[itemIndex], "</h1>\n              <h2 class=\"card-text\">").concat(categoryNameList[itemIndex], "</h2>\n              <h4>").concat(releaseDateList[itemIndex], "</h4>\n              <p>").concat(overviewList[itemIndex], "</p>\n              <a href=\"index.html\" button type=\"button\" class=\"btn btn-primary\">\n                > Back\n              </a>\n            </div>\n          </div>\n          ");
                             detail.append(createDetailContainer);
                         };
                         btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
@@ -179,7 +179,7 @@ var displayMovie = function (result, url) { return __awaiter(_this, void 0, void
                             var detail = document.getElementById("movie-container-detail");
                             var createDetailContainer = document.createElement("div");
                             createDetailContainer.setAttribute("class", "card col-md-8");
-                            createDetailContainer.innerHTML = "\n          <div class=\"detail-card\">\n            <div>\n              <img class=\"card-image__detail\" src= " + imgUrl + posterUrl_1[itemIndex] + " onerror=\"this.onerror=null;this.src='images/error-image-detail.jpeg'\">\n            </div>\n            <div class=\"card-body\" class=\"card-title__detail\">\n              <h1 class=\"card-title\">" + title_1[itemIndex] + "</h1>\n              <h2 class=\"card-text\">" + categoryName_1[itemIndex] + "</h2>\n              <h4>" + releaseDate_1[itemIndex] + "</h4>\n              <p>" + overview_1[itemIndex] + "</p>\n                <a href=\"index.html\" type=\"button\" class=\"btn btn-primary\">\n                  > Back\n                </a>\n            </div>\n          </div>\n          ";
+                            createDetailContainer.innerHTML = "\n          <div class=\"detail-card\">\n            <div>\n              <img class=\"card-image__detail\" src= ".concat(imgUrl).concat(posterUrl_1[itemIndex], " onerror=\"this.onerror=null;this.src='images/error-image-detail.jpeg'\">\n            </div>\n            <div class=\"card-body\" class=\"card-title__detail\">\n              <h1 class=\"card-title\">").concat(title_1[itemIndex], "</h1>\n              <h2 class=\"card-text\">").concat(categoryName_1[itemIndex], "</h2>\n              <h4>").concat(releaseDate_1[itemIndex], "</h4>\n              <p>").concat(overview_1[itemIndex], "</p>\n                <a href=\"index.html\" type=\"button\" class=\"btn btn-primary\">\n                  > Back\n                </a>\n            </div>\n          </div>\n          ");
                             detail.append(createDetailContainer);
                         };
                         btnIdStr = JSON.parse(window.localStorage.getItem("btnId"));
@@ -213,10 +213,10 @@ var searchByQuery = function () {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         var searchWord = search.value;
-        window.localStorage.setItem("searchWord", JSON.stringify("" + searchWord));
+        window.localStorage.setItem("searchWord", JSON.stringify("".concat(searchWord)));
         if (searchWord) {
             movieContainer.innerHTML = "";
-            fetchMovie("" + searchUrl + searchWord);
+            fetchMovie("".concat(searchUrl).concat(searchWord));
             search.value = "";
         }
         else if (searchWord == undefined) {
@@ -235,3 +235,4 @@ var getColor = function (vote) {
         return "red";
     }
 };
+//# sourceMappingURL=script.js.map
