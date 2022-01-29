@@ -16,6 +16,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "tsc:w": "tsc -w --outDir build",
     "dev-server": "webpack-dev-server"
   },
   "name": "movieapi-app",
