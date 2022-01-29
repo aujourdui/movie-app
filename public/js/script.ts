@@ -9,10 +9,10 @@ const searchUrl = `${baseUrl}/search/movie?${apiKey}&query=`;
 
 const movieContainer = document.getElementById("movie-container");
 const form = document.getElementById("form");
-const search = document.getElementById("search");
+const search: HTMLInputElement = document.getElementById("search");
 
 // home page
-const fetchMovieGenre = async (url) => {
+const fetchMovieGenre = async (url: RequestInfo) => {
   const response = await fetch(url);
   if (response.status == 200) {
     console.log("It's working!");
@@ -24,7 +24,7 @@ const fetchMovieGenre = async (url) => {
   return genres;
 };
 
-const fetchMovie = async (url) => {
+const fetchMovie = async (url: string) => {
   const response = await fetch(url);
   if (response.status == 200) {
     console.log("It's working!");
@@ -36,14 +36,24 @@ const fetchMovie = async (url) => {
   displayMovie(result, url);
 };
 
-const displayMovie = async (result, url) => {
-  const titleList = result.map((data) => data.title);
-  const categoryIdList = result.map((data) => data.genre_ids[0]);
-  const backdropUrlList = result.map((data) => data.backdrop_path);
-  const posterUrlList = result.map((data) => data.poster_path);
-  const overviewList = result.map((data) => data.overview);
-  const releaseDateList = result.map((data) => data.release_date);
-  const voteList = result.map((data) => data.vote_average);
+const displayMovie = async (result: any[], url: string) => {
+  const titleList = result.map((data: { title: any }) => data.title);
+  const categoryIdList = result.map(
+    (data: { genre_ids: any[] }) => data.genre_ids[0]
+  );
+  const backdropUrlList = result.map(
+    (data: { backdrop_path: any }) => data.backdrop_path
+  );
+  const posterUrlList = result.map(
+    (data: { poster_path: any }) => data.poster_path
+  );
+  const overviewList = result.map((data: { overview: any }) => data.overview);
+  const releaseDateList = result.map(
+    (data: { release_date: any }) => data.release_date
+  );
+  const voteList = result.map(
+    (data: { vote_average: any }) => data.vote_average
+  );
   const genres = await fetchMovieGenre(genreUrl);
   const categoryNameList = createCategoryNameList(categoryIdList, genres);
 
@@ -75,13 +85,13 @@ const displayMovie = async (result, url) => {
     movieContainer.append(cardContainer);
   };
 
-  const setCreateCardContainer = (column) => {
+  const setCreateCardContainer = (column: number) => {
     for (let i = 0; i < column; i++) {
       createCardContainer();
     }
   };
 
-  const createCard = (column, itemIndex) => {
+  const createCard = (column: number, itemIndex: number) => {
     const cardContainer =
       document.getElementsByClassName("card-container")[column];
     const cardList = document.createElement("a");
@@ -117,7 +127,7 @@ const displayMovie = async (result, url) => {
     cardContainer.append(cardList);
   };
 
-  const createCardList = (row, column) => {
+  const createCardList = (row: number, column: number) => {
     setCreateCardContainer(column);
     for (let t = 0; t < column; t++) {
       for (let i = 0; i < row; i++) {
@@ -146,15 +156,10 @@ const displayMovie = async (result, url) => {
     const newUrl = JSON.parse(window.localStorage.getItem("url"));
 
     if (url == popularUrl && newUrl == null) {
-      const createDetailCard = (itemIndex) => {
+      const createDetailCard = (itemIndex: number) => {
         const detail = document.getElementById("movie-container-detail");
         const createDetailContainer = document.createElement("div");
-        createDetailContainer.setAttribute(
-          "class",
-          "card col-md-8",
-          "style",
-          "width: 100%"
-        );
+        createDetailContainer.setAttribute("class", "card col-md-8");
         createDetailContainer.innerHTML = `
           <div class="detail-card">
             <div>
@@ -188,12 +193,7 @@ const displayMovie = async (result, url) => {
       const createDetailCard = (itemIndex) => {
         const detail = document.getElementById("movie-container-detail");
         const createDetailContainer = document.createElement("div");
-        createDetailContainer.setAttribute(
-          "class",
-          "card col-md-8",
-          "style",
-          "width: 100%"
-        );
+        createDetailContainer.setAttribute("class", "card col-md-8");
         createDetailContainer.innerHTML = `
           <div class="detail-card">
             <div>
