@@ -1,4 +1,4 @@
-import apiKey from "./config.js";
+const apiKey = "api_key=67a465f165043b63372ea02407bc5582";
 
 const baseUrl = "https://api.themoviedb.org/3";
 const imgUrl = "https://image.tmdb.org/t/p/w500";
@@ -9,7 +9,7 @@ const searchUrl = `${baseUrl}/search/movie?${apiKey}&query=`;
 
 const movieContainer = document.getElementById("movie-container");
 const form = document.getElementById("form");
-const search: HTMLInputElement = document.getElementById("search");
+const search = <HTMLInputElement>document.getElementById("search");
 
 // home page
 const fetchMovieGenre = async (url: RequestInfo) => {

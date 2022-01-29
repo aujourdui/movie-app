@@ -3,7 +3,8 @@
     "awesome-typescript-loader": "^5.2.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "source-map-loader": "^3.0.1"
+    "source-map-loader": "^3.0.1",
+    "webpack-dev-server": "^4.7.3"
   },
   "devDependencies": {
     "typescript": "^4.5.5",
@@ -14,11 +15,11 @@
     "node": "16.11"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev-server": "webpack-dev-server"
   },
   "name": "movieapi-app",
   "description": "This is movieAPI app",
-  "type": "module",
   "version": "1.0.0",
   "main": "script.js",
   "repository": {
