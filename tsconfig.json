@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "outDir": "./public/js",
     "allowJs": true,
     "target": "es5",
-    "module": "commonJS",
-    "moduleResolution": "node"
+    "lib": ["esnext", "dom"],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["script.ts"]
+  "exclude": ["node_modules"]
 }
