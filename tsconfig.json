@@ -4,8 +4,9 @@
     "allowJs": true,
     "target": "es5",
     "lib": ["esnext", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node"
+    "module": "es2020",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["script.ts"]
+  "exclude": ["node_modules"]
 }

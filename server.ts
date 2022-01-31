@@ -16,11 +16,11 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-let port = env.PORT;
+let port: string | number = env.PORT;
 if (port == null || port == "") {
-  port = 3000;
+  port = 3001;
 }
 
 app.listen(port, () => {
-  console.log("Server has started successfully at port 3000");
+  console.log("Server has started successfully at port 3001");
 });
