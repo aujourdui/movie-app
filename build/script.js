@@ -235,4 +235,3 @@ var getColor = function (vote) {
         return "red";
     }
 };
-//# sourceMappingURL=script.js.map

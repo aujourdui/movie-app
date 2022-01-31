@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "outDir": "./public/js",
     "allowJs": true,
     "target": "es5",
-    "module": "commonJS",
+    "lib": ["esnext", "dom"],
+    "module": "commonjs",
     "moduleResolution": "node"
   },
   "include": ["script.ts"]
